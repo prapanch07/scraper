@@ -57,7 +57,13 @@ def scrape():
             "views": getattr(post, "video_view_count", 0) or 0,
             "caption": post.caption or "",
             "owner": post.owner_username,
-            "is_video": post.is_video
+            "is_video": post.is_video,
+            "timestamp": int(post.date_utc.timestamp()),
+            "date": post.date_utc.isoformat(),
+            "hashtags": list(post.caption_hashtags),
+            "mentions": list(post.caption_mentions),
+            "thumbnail": post.url,
+            "video_url": post.video_url if post.is_video else None
         }
 
         return jsonify({
